@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('home') }}" style="color: white;">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('about') }}" style="color: white; padding-left: 30px;">About</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('prediction') }}" style="color: yellow; padding-left: 30px;">Prediction</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}" style="color: white; padding-left: 30px;">Logout</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<center>
+    <div style="margin-top: 40px; min-height: 600px; background-color: rgba(0,0,0,0.65); padding: 30px; border-radius: 12px; max-width: 1100px;">
+        <h2 style="color: #ffd700; margin-bottom: 30px;">Attack Detection & Recommendation</h2>
+
+        {% if result %}
+        <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 10px; margin-bottom: 35px; width: 90%; max-width: 800px;">
+            <h3 style="color: #00ff9d; margin-bottom: 15px;">
+                Predicted Attack: <strong style="color: #ff4d4d;">{{ result }}</strong>
+            </h3>
+            <p style="color: #e0e0e0; font-size: 1.1rem; line-height: 1.5;">
+                <strong>Recommendation:</strong> {{ suggestion }}
+            </p>
+        </div>
+
+{% if shap_image %}
+<div style="margin: 30px 0; text-align: center;">
+    <h4 style="color: #ffd700;">Feature Importance (SHAP)</h4>
+    <img src="{{ url_for('static', filename=shap_image.split('?')[0]) }}?{{ shap_image.split('?')[1] if '?' in shap_image else '' }}"
+         alt="SHAP Summary Plot"
+         style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.6);">
+</div>
+{% endif %}
+        <hr style="border-color: #555; margin: 40px 0;">
+        {% endif %}
+
+        <!-- Form -->
+        <div style="background: rgba(36, 158, 164, 0.88); padding: 30px; border-radius: 12px; width: 620px; margin: 0 auto;">
+            <h3 style="color: #111; margin-bottom: 25px;">Enter Network Features</h3>
+
+            <form action="{{ url_for('prediction') }}" method="post">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px;">
+                    <input type="number" step="any" name="Time"              placeholder="Time" required>
+                    <input type="number" step="any" name="Is_CH"             placeholder="Is_CH" required>
+                    <input type="number" step="any" name="who_CH"            placeholder="who_CH" required>
+                    <input type="number" step="any" name="Dist_To_CH"        placeholder="Dist_To_CH" required>
+                    <input type="number" step="any" name="ADV_S"             placeholder="ADV_S" required>
+                    <input type="number" step="any" name="ADV_R"             placeholder="ADV_R" required>
+                    <input type="number" step="any" name="JOIN_S"            placeholder="JOIN_S" required>
+                    <input type="number" step="any" name="JOIN_R"            placeholder="JOIN_R" required>
+                    <input type="number" step="any" name="SCH_S"             placeholder="SCH_S" required>
+                    <input type="number" step="any" name="SCH_R"             placeholder="SCH_R" required>
+                    <input type="number" step="any" name="Rank"              placeholder="Rank" required>
+                    <input type="number" step="any" name="DATA_S"            placeholder="DATA_S" required>
+                    <input type="number" step="any" name="DATA_R"            placeholder="DATA_R" required>
+                    <input type="number" step="any" name="Data_Sent_To_BS"   placeholder="Data_Sent_To_BS" required>
+                    <input type="number" step="any" name="dist_CH_To_BS"     placeholder="dist_CH_To_BS" required>
+                    <input type="number" step="any" name="send_code"         placeholder="send_code" required>
+                    <input type="number" step="any" name="Expanded_Energy"   placeholder="Expanded_Energy" required style="grid-column: span 2;">
+                </div>
+
+                <button type="submit" class="btn btn-success" style="margin-top: 28px; padding: 12px 40px; font-size: 1.1rem;">
+                    Analyze
+                </button>
+            </form>
+        </div>
+    </div>
+</center>
+{% endblock %}

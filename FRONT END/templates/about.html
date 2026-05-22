@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('home')}}" style="color: white;">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('about')}}" style="color: yellow; padding-left: 30px;">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('prediction')}}" style="color: white; padding-left: 30px;">Prediction</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('index')}}" style="color: white; padding-left: 30px;">Logout</a>
+        </li>
+    </ul>
+{% endblock %}
+               
+
+{% block content %}
+    <div class="banner_section layout_padding" style="display: flex; align-items: center; justify-content: center; height: 100vh; background-color: rgba(0, 0, 0, 0.63);">
+        <div class="container">
+            <div id="banner_slider" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row justify-content-center">
+                        <div class="banner_taital_main text-center" style="margin-top: -110px;">
+                            
+                            <h1 class="banner_taital" style="color: white;">About!</h1>
+                            <p class="banner_text" style="color: white; padding: 30px; text-align: justify;">
+                                Our web application, "Attack Prediction for Wireless Sensor Networks," leverages advanced machine learning to enhance the security of Wireless Sensor Networks (WSNs). Utilizing Particle Swarm Optimization (PSO) and an Explainable Ensemble model based on XGBoost, this project accurately predicts potential attacks such as Blackhole, Flooding, Grayhole, and TDMA, ensuring robust network protection. The integration of SHAP (SHapley Additive exPlanations) provides transparent insights into model predictions, empowering users to understand the factors driving attack detection. Designed for ease of use, the application allows users to input sensor data and receive real-time predictions, supported by visual explanations. Built with Flask, MySQL, and a user-friendly interface, it ensures secure user authentication and seamless data handling. This project aims to safeguard WSNs in critical applications like environmental monitoring and industrial automation by proactively identifying threats. Developed with a focus on reliability and scalability, it combines cutting-edge AI with practical deployment, making it a vital tool for network administrators and security professionals.
+                            </p>
+                            <h5 class="tasty_text">
+                                "Secure Sensors, Predict with Precision: PSO-Powered Protection for Wireless Networks"
+                            </h5>
+                            
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
